@@ -11,6 +11,7 @@ iex> Enum.map([1, 2, 3], fn x -> x * 2 end)
 
 ```elixir
 iex> Enum.map([%{name: "Erick", songs: 2}, %{name: "Ivan",  songs: 12}], fn user -> user.songs > 0  end)
+[true, true]
 ```
 
 ### Enum.filter
@@ -47,7 +48,7 @@ iex> Enum.sort_by(["some", "kind", "of", "monster"], &byte_size/1, :desc)
 ```
 
 ```elixir
-iex> Enum.sort_by(["some", "kind", "of", "monster"], &byte_size/1, :asc)
+iex> Enum.sort_by(["some", "kind", "of", "monster"], fn item -> byte_size(item) end, :asc)
 ["monster", "some", "kind", "of"]
 ```
 
@@ -128,5 +129,44 @@ Enum.zip_with([[1, 2], [3, 4]], fn [x, y] -> x + y end)
 ```elixir
 iex> sum_ = fn [name, complement] -> name <> " " <> complement end
 Enum.zip_with([["Erick", "Dan"], ["Bárcenas", "Muñoz"]], sum_)
-[4, 6]
+["Erick Bárcenas", "Dan Muñoz"]
 ```
+
+```elixir
+iex> a = [1, 2, 3]
+iex> b = [4, 5, 6]
+iex> Enum.zip_with([a,b], fn [a,b] -> a-b end)
+[-3, -3, -3]
+```
+
+```elixir
+iex> saludos = ["Hola", "Buen dia", "Saludos"]
+iex> nombres = ["Juan", "Pedro", "Luis"]
+iex> Enum.zip_with(saludos, nombres, fn x, y -> x <> " " <> y end)
+["Hola Juan", "Buen dia Pedro", "Saludos Luis"]
+```
+
+```elixir
+iex> listas = [["Hola", "¿Cómo estás?", "Hola"], ["Agus", "Ricardo", "Tania"]]
+iex> listas |> Enum.zip_with(fn [h, n] -> h <> " " <> n <> ", ¡que te diviertas!" end)
+```
+
+
+### Enum.reduce
+
+```elixir
+Enum.reduce([1, 2, 3, 4, 5], 0, fn x, acc -> x + acc end)
+```
+
+```elixir
+Enum.reduce([1, 2, 3, 4, 5], fn x, acc -> x * acc end)
+```
+
+```elixir
+Enum.reduce(["Agus", "Erick", "Norberto"], "", fn x, acc -> acc <> "," <> x end)
+```
+
+```elixir
+Enum.reduce(["Agus", "Erick", "Norberto"], fn x, acc -> acc <> "," <> x end)
+```
+
