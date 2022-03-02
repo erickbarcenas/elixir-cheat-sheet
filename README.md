@@ -1,6 +1,10 @@
 # elixir-cheat-sheet
 
+## Executable
+elixir .\main.ex
+
 ## Examples
+
 
 ### Enum.map
 
@@ -170,3 +174,67 @@ Enum.reduce(["Agus", "Erick", "Norberto"], "", fn x, acc -> acc <> "," <> x end)
 Enum.reduce(["Agus", "Erick", "Norberto"], fn x, acc -> acc <> "," <> x end)
 ```
 
+### Mapas
+
+```elixir
+iex> m = %{"one" => 1, "two" => 2, "three" => 2}
+iex> m["one"]
+1
+```
+
+Todo en elixir son valores
+los valores son inmutables, una vez se crearon no se pueden modificar
+Ni una tupla, ni un string, etc. no pueden cambiar.
+
+Creación de un nuevo mapa que se guarda en m1
+```elixir
+iex> m1 = Map.put(m, "four", 4)
+iex> m1["one"]
+```
+Creación de un nuevo mapa que se guarda en m, reemplaza todo lo que tiene m
+```elixir
+iex> m1 = Map.put(m, "four", 4)
+iex> m1["one"]
+```
+
+Eliminar llave y valor
+```elixir
+iex> m2 = Map.delete(m, "two")
+```
+
+```elixir
+iex> %{} |> Map.put("one", 1) |> Map.put("two", 2)
+%{"one" => 1, "two" => 2}
+```
+
+### Documentación
+
+```elixir
+iex> Map. # presionar tabulador
+iex> h Map.put_new
+```
+
+```elixir
+iex> %{:one => 1, :two => 2}
+```
+
+```elixir
+iex> m = %{one: 1, two: 2}
+iex> m.one # solo cuando son átomos y uno está seguro de que existe
+iex> m[:one] # cuando no sabemos si existe la llave
+```
+
+# Actividad
+Con reduce y mapas 
+decir el valor total de la lista de productos
+
+
+```elixir
+productos = [
+  %{ producto: "chocolate", precio: 5},
+  %{ producto: "chicle", precio: 1},
+  %{ producto: "mazapan", precio: 8},
+  %{ producto: "paleta tupsi", precio: 4}
+]
+Enum.reduce(productos, fn item, 0 -> item.precio end)
+```
