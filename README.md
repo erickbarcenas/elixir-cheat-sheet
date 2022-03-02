@@ -2,9 +2,18 @@
 
 ## Examples
 
+### Enum.map
+
 ```elixir
 
 ```
+
+### Enum.filter
+
+```elixir
+
+```
+
 ### split
 
 ```elixir
