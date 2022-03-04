@@ -238,3 +238,169 @@ productos = [
 ]
 Enum.reduce(productos, fn item, 0 -> item.precio end)
 ```
+
+Keyword.keys([a: 1, b: 2, a: 3])
+
+
+# Update a map
+
+```elixir
+iex> m = %{one: 1, two: 2}
+iex> %{m | two: "two"}
+
+iex> m = %{"one" => 1, "two" => 2}
+iex> %{m | two: "two"}
+```
+
+# Extract value from key
+
+```elixir
+m = %{one: 1, two: 2, three:3}
+%{one: x, two: y} = m
+%{one: _, two: y} = m
+```
+
+
+# para no usar la variable
+```elixir
+{:ok, _error, error_desc}
+```
+
+# Funciones anónimas
+```elixir
+mult = fn x, y -> x * y end
+mult.(3, 5)
+```
+
+```elixir
+Enum.reduce([1,2,3,4,5], fn x, y -> x * y end)
+
+Enum.reduce([1,2,3,4,5], mult)
+```
+
+
+```elixir
+multiplier = fn x ->
+  fn y -> x * y end
+end
+
+doubler = multiplier.(2)
+doubler.(10)
+```
+
+
+# Funciones de orden mayor
+Funciones que reciben a otra función como parámetro
+Funciones de funciones
+
+Módulo con una función.
+```elixir
+defmodule Fib do
+  def fib(0), do: 0
+  def fib(1), do: 1
+  def fib(n), do fib(n-1) + fib(n-2)
+end
+
+Fib.fib(0)
+Fib.fib(1)
+Fib.fib(2)
+Fib.fib(3)
+```
+
+## Recursión
+```elixir
+defmodule Fib do
+  def fib(0), do: 0
+  def fib(1), do: 1
+  def fib(n), do fib(n-1) + fib(n-2)
+end
+```
+
+## Estructuras de control
+```elixir
+x = 10
+y = 20
+if x >=5 do
+  IO.puts("greater")
+else
+  IO.puts("lesser")
+end
+```
+
+```elixir
+x = 10
+y = 20
+if x >=5 do
+  {:ok, "greater"}
+else
+  {:error, "lesser"}
+end
+```
+
+
+```elixir
+x = 10
+y = 20
+if x >=5 do
+  {:ok, "greater"}
+end
+
+#resultados
+{:ok, "greater"} #entra en el if
+nil # no entra en el if
+```
+
+```elixir
+defmodule Foo do
+  def bar(x) do
+    if x > 5 do
+      {:ok, "greater"}
+    else
+      {:error, "lesser"}
+    end
+  end
+end
+```
+
+
+```elixir
+  case x do
+    5 -> "five"
+    10 -> "ten"
+    _-> "unknown"
+  end
+```
+
+
+```elixir
+defmodule Foo do
+  def bar(x) do
+    case x do
+      {:ok, res} -> res
+      {:ok, res} -> res  # claúsula, es es el cuerpo de la claúsula
+      {:ok, _, res} -> res
+      {:error, reason} -> "Error": #{reason}"
+      _-> "unknown input"
+    end
+  end
+end
+```
+
+```elixir
+Foo.bar({:error, "no data"})
+```
+
+```elixir
+Foo.bar({:ok, 10})
+```
+
+## Truco
+```elixir
+iex> 1..10//2 |> Enum.each(fn x -> IO.puts(x) end)
+0
+2
+4
+6
+8
+10
+```
