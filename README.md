@@ -404,3 +404,20 @@ iex> 1..10//2 |> Enum.each(fn x -> IO.puts(x) end)
 8
 10
 ```
+## Cond: funciona con expresiones booleanas
+
+## Case: funciona con pattern matching
+```elixir
+x = 18
+val = {rem(x,3), rem(x,5)}
+{0, 3}
+
+case val do
+  {0,0} -> "FizzBuzz"
+  {0,_} -> "Fizz"
+  {_,0} -> "Buzz"
+  {_,_} -> x
+end
+
+"Fizz"
+```
